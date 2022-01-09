@@ -31,7 +31,9 @@ pipeline
 			{
 				echo "Build number ${BUILD_NUMBER} with tag ${BUILD_TAG}"
 					
-				sh 'pip install --user pipenv cookiecutter autopep8 && \
+				sh 'python -m venv "${BUILD_TAG} && \
+				. ${BUILD_TAG}/Scripts/activate && \
+				pip install --user pipenv cookiecutter autopep8 && \
 				cookiecutter https://github.com/awesto/cookiecutter-django-shop && \
 				cd my-shop && \
 				pipenv install --sequential && \
