@@ -31,13 +31,15 @@ pipeline
 			{
 				echo "Build number ${BUILD_NUMBER} with tag ${BUILD_TAG}"
 					
-				sh 'python -m venv "${BUILD_TAG}" && \
-                    		. ${BUILD_TAG}/Scripts/activate && \
-				python -m pip install Pillow && \
-                    		${BUILD_TAG}/Scripts/pip install -r requirements.txt && \
-                    		python manage.py makemigrations && python manage.py migrate && \
-				python -m py_compile manage.py && \
-                    		deactivate'
+				sh 'pip install --user pipenv cookiecutter autopep8 && \
+				cookiecutter https://github.com/awesto/cookiecutter-django-shop && \
+				cd my-shop && \
+				pipenv install --sequential && \
+				npm install && \
+				pipenv run ./manage.py initialize_shop_demo && \
+				export DJANGO_DEBUG=1'
+				
+				
 			}
 		}
 		
